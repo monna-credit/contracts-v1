@@ -16,6 +16,7 @@ from vyper.interfaces import ERC20Detailed
 # blue print implementations
 pool_implementation: public(address)
 math_implementation: public(address)
+interest_rate_model: public(address)
 
 # asset adddress -> pools for provision
 pool_data: public(HashMap[address, address])
@@ -61,6 +62,7 @@ def deploy_pool(
         decimals,
         _underlying_asset,
         self.math_implementation,
+        self.interest_rate_model,
         code_offset=3
     )
 
@@ -85,6 +87,15 @@ def set_math_implementation(
     assert msg.sender == self.admin
     assert _implementation != empty(address)
     self.math_implementation = _implementation
+
+@external
+def set_interest_rate_model(
+    _implementation: address
+):
+    assert msg.sender == self.admin
+    assert _implementation != empty(address)
+    self.interest_rate_model = _implementation
+
 
 @external
 def set_fee_receiver(_fee_receiver: address):

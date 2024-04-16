@@ -5,6 +5,9 @@
 @notice Mock ERC20 for testing
 """
 
+from vyper.interfaces import ERC20
+
+implements: ERC20
 
 event Transfer:
     _from: indexed(address)
@@ -24,9 +27,6 @@ decimals: public(uint256)
 balanceOf: public(HashMap[address, uint256])
 allowances: HashMap[address, HashMap[address, uint256]]
 totalSupply: public(uint256)
-
-# asset type
-asset_type: public(constant(uint8)) = 0
 
 
 @external

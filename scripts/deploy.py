@@ -4,11 +4,11 @@ from rich.console import Console as RichConsole
 from ape import accounts, project
 
 import boa
-from boa.network import NetworkEnv
-from eth_abi import encode
 from eth_account import Account
-from eth_typing import Address
-# sphere shop enlist jaguar glance gospel donate floor clean off addict memory
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # MONNAQUE 0xd47378694be4a8ac129C1326f2982CC1661754CB
 
 logger = RichConsole(file=sys.stdout)
@@ -57,7 +57,7 @@ def check_and_deploy(contract_obj, contract_designation, network, blueprint: boo
 def deploy(network):
     logger.log(f"Deploying pool factory on {network} ...")
 
-    # non-blueprint contracts
+    # non-blueprint contract
     math_contract_obj = get_contract_obj("./contracts/math.vy")
     math_contract = check_and_deploy(math_contract_obj, "math", network)
 
@@ -92,14 +92,17 @@ def deploy(network):
 
     pool_factory_contract.set_pool_implementation(pool_blueprint.address)
     pool_factory_contract.set_math_implementation(math_contract.address)
+    pool_factory_contract.set_interest_rate_model(interest_rate_model_contract.address)
     logger.log(f"Pool implementation address within factory: {pool_factory_contract.pool_implementation()}")
     logger.log(f"Math implementation address within factory: {pool_factory_contract.math_implementation()}")
+    logger.log(f"Interest rate address within factory: {pool_factory_contract.interest_rate_model()}")
 
 
 def main():
-    sei_devnet_url = os.environ["SEI_RPC_URL"]
+    sei_devnet_url = os.environ.get("SEI_RPC_URL")
+    logger.log(f"Using rpc URL: {sei_devnet_url}")
     boa.set_network_env(sei_devnet_url)
-    boa.env.add_account(Account.from_key(os.environ["SENDER_PRIVATE_KEY"]))
+    boa.env.add_account(Account.from_key(os.environ.get("SENDER_PRIVATE_KEY")))
 
     deploy("sei:devnet")
 
