@@ -90,7 +90,6 @@ def set_math_implementation(
 def set_fee_receiver(_fee_receiver: address):
     """
     @notice Set fee receiver for all pools
-    @param _pool Address of  pool to set fee receiver for.
     @param _fee_receiver Address that fees are sent to
     """
     assert msg.sender == self.admin  # dev: admin only

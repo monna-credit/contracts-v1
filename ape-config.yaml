@@ -1,4 +1,4 @@
-name: yeth-contracts
+name: monna-contracts
 plugins:
   - name: vyper
   - name: foundry

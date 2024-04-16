@@ -1,17 +1,22 @@
-# pragma version 0.3.10
-# pragma optimize codesize
-# pragma evm-version shanghai
+#pragma version 0.3.10
+#pragma optimize codesize
+#pragma evm-version shanghai
 """
 @title Monna Interest Rate Model
 @author danil-sergeev, Monna.io
 @license Copyright (c) Monna, 2024 - all rights reserved
 """
-from math import Math
 
 WAD: constant(uint256) = 10 ** 18
 RAY: constant(uint256) = 10 ** 27
 
-math_implementation: Math
+
+interface Math:
+    def percent_multiply(_value: uint256, _percentage: uint256) -> uint256: view
+    def percent_divide(_value: uint256, _percentage: uint256) -> uint256: view
+    def get_percentage_factor() -> uint256: view
+
+math_implementation: public(Math)
 optimal_utilization_rate: public(immutable(uint256))
 base_borrow_rate: public(immutable(uint256))
 rate_slope_1: public(immutable(uint256))

@@ -1,6 +1,6 @@
-# pragma version 0.3.10
-# pragma optimize codesize
-# pragma evm-version shanghai
+#pragma version 0.3.10
+#pragma optimize codesize
+#pragma evm-version shanghai
 """
 @title monna math helpers implementation
 @author danil-sergeev, Monna.io
