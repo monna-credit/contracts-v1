@@ -1,5 +1,6 @@
-# pragma version 0.3.10
-
+#pragma version 0.3.10
+#pragma optimize codesize
+#pragma evm-version shanghai
 """
 @notice Mock ERC20 for testing
 """

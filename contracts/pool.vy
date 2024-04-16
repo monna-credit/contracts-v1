@@ -10,8 +10,6 @@
 from vyper.interfaces import ERC20
 from vyper.interfaces import ERC20Detailed
 from vyper.interfaces import ERC4626
-from interest_rate_model import InterestRateModel
-from math import Math
 
 implements: ERC20
 
@@ -24,7 +22,14 @@ interface Factory:
 interface ERC1271:
     def isValidSignature(_hash: bytes32, _signature: Bytes[65]) -> bytes32: view
 
+interface Math:
+    def percent_multiply(_value: uint256, _percentage: uint256) -> uint256: view
+    def percent_divide(_value: uint256, _percentage: uint256) -> uint256: view
+    def get_percentage_factor() -> uint256: view
 
+interface InterestRateModel:
+    def calculate_borrow_rate(_available_pool_liquidity: uint256, _expected_pool_liquidity: uint256) -> uint256: view
+    def get_model_parameters() -> (uint256, uint256, uint256, uint256): view
 # ------------------------------- Events ---------------------------------
 event Transfer:
     sender: indexed(address)

@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "monna-v1"
+version = "0.1.0"
+description = "Monna V1 leverage contracts"
+authors = ["Danil Sergeev <degenbuilding@gmail.com>", "Monna.io"]
+license = "MIT"
+readme = "README.md"
+packages = []
+
+[tool.poetry.dependencies]
+python = "^3.10"
+titanoboa = {git = "https://github.com/vyperlang/titanoboa.git", rev = "8343f16bd35829421c0953373aa854fc52b41170"}
+vyper = "0.3.10"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
